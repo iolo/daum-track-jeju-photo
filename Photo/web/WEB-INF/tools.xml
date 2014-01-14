@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tools>
+	<toolbox scope="application">
+		<tool class="org.apache.velocity.tools.generic.AlternatorTool" />
+		<tool class="org.apache.velocity.tools.generic.ClassTool" />
+		<tool class="org.apache.velocity.tools.generic.ComparisonDateTool" />
+		<tool class="org.apache.velocity.tools.generic.ConversionTool" />
+		<tool class="org.apache.velocity.tools.generic.DisplayTool" />
+		<tool class="org.apache.velocity.tools.generic.EscapeTool" />
+		<tool class="org.apache.velocity.tools.generic.FieldTool" />
+		<tool class="org.apache.velocity.tools.generic.ListTool" />
+		<tool class="org.apache.velocity.tools.generic.ListTool" key="list" />
+		<tool class="org.apache.velocity.tools.generic.MathTool" key="math"/>	
+		<tool class="org.apache.velocity.tools.generic.ResourceTool" />
+		<tool class="org.apache.velocity.tools.generic.SortTool" />
+		<tool class="org.apache.velocity.tools.generic.XmlTool" />
+		<tool class="org.apache.velocity.tools.generic.DateTool" format="yyyy-MM-dd HH:mm:ss" />		
+				
+		<tool class="org.apache.commons.lang.StringUtils" key="StringUtils" />		
+		<tool class="org.apache.velocity.tools.generic.NumberTool" key="number" />				
+		
+	</toolbox>
+	<toolbox scope="request">
+		<tool class="org.apache.velocity.tools.generic.ContextTool" />
+		<tool class="org.apache.velocity.tools.generic.LinkTool" />
+		<tool class="org.apache.velocity.tools.generic.LoopTool" />
+		<tool class="org.apache.velocity.tools.generic.RenderTool" />
+		<tool class="org.apache.velocity.tools.view.ImportTool" />
+		<tool class="org.apache.velocity.tools.view.ParameterTool" />
+	</toolbox>
+</tools>

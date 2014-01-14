@@ -1,0 +1,6 @@
+#foreach ($article in $sampleList)	
+	$article.articleid, $article.title <br>						
+#end		
+
+<br>
+데이터는 $!{jsonData} 입니다.

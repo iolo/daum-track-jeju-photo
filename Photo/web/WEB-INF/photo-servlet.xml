@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+	   http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-3.0.xsd
+       http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+	<!-- Annotation-Based Configuration -->
+	<context:annotation-config />
+	<context:component-scan base-package="geophoto"
+		use-default-filters="false">
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+
+	<!-- AOP Configuration -->
+	<aop:aspectj-autoproxy proxy-target-class="false" />
+
+
+	<!-- View Configuration -->
+	<bean id="viewNameTranslator"
+		class="org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator" />
+
+	<bean id="velocityConfigurer"
+		class="org.springframework.web.servlet.view.velocity.VelocityConfigurer"
+		p:resourceLoaderPath="/WEB-INF/velocity/" p:configLocation="/WEB-INF/velocity.properties" />
+
+	<bean id="velocityViewResolver"
+		class="org.springframework.web.servlet.view.velocity.VelocityViewResolver"
+		p:cache="false" p:suffix=".vm" p:contentType="text/html;charset=utf-8"
+		p:toolboxConfigLocation="/WEB-INF/tools.xml" p:allowRequestOverride="true"
+		p:allowSessionOverride="true" p:exposeSessionAttributes="true"
+		p:exposeSpringMacroHelpers="true" p:exposeRequestAttributes="true"
+		p:viewClass="geophoto.velocity.PhotoVelocityToolboxView"
+		p:order="1" />
+		
+
+	<!-- Resolver Configuration -->
+	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" p:order="0" />
+
+	
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"
+		p:webBindingInitializer-ref="configurableWebBindingInitializer"/>
+
+
+	<bean id="configurableWebBindingInitializer"
+		class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer"
+		p:conversionService-ref="formattingConversionService" />
+	
+	<!--  
+	<bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+     <property name="exceptionMappings">
+      <props>
+       <prop key="org.springframework.web.multipart.MaxUploadSizeExceededException">/common/exceed</prop>
+      </props>
+     </property>
+    </bean>
+    -->	
+</beans>
+

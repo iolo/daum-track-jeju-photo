@@ -1,0 +1,78 @@
+## MACRO 모음
+#macro (isTestMode)off#end
+	
+## 배열을 콤마(,)로 연결 ##########################################################################
+#macro (makeCode2ArrayList $item $length)#foreach( $pi in $item)#if($pi.code!="*")'$pi.code'#if($length!=$velocityCount),#end#end#end#end
+#macro (makeCodeName2ArrayList $item $length)#foreach( $pi in $item)#if($pi.code!="*")'$pi.codename'#if($length!=$velocityCount),#end#end#end#end
+#macro (makeCodeValue2ArrayList $item $length)#set($isSelected=false)#foreach( $pi in $item)#if( $pi.value == "2")#set($isSelected=true)#end#end#foreach( $pi in $item)#if($velocityCount==1&&$isSelected==false)'2'#else'$pi.value'#end#if($length!=$velocityCount),#end#end#end
+#macro (makeSliderRangeList $item $length $cmd)#set($isSelected=false)#foreach( $pi in $item)#if( $pi.value == "2" )#set($isSelected=true)#end#end#foreach( $pi in $item)#if($velocityCount==1&&$isSelected==false&&$cmd != "MI")'2'#else'$pi.value'#end#if($length!=$velocityCount),#end#end#end
+#macro (makeValue2ArrayList $item $length)#foreach( $pi in $item )$pi#if($length!=$velocityCount),#end#end#end
+#macro (makeValue2ArrayListQuot $item $length)#foreach( $pi in $item )'$pi'#if($length!=$velocityCount),#end#end#end
+
+## 날짜 스트링을 각 포멧에 맞춰서 출력 ################################################################
+#macro (makeYYYYDotMM $string)$!StringUtils.left($string, 4).$StringUtils.mid($string, 4, 2)#end
+#macro (makeYYYYDotMMDotDD $string)$!StringUtils.left($string, 4).$!StringUtils.mid($string, 4, 2).$!StringUtils.mid($string, 6, 2)#end
+#macro (makeMMDotDD $string)$StringUtils.mid($string, 4, 2).$StringUtils.mid($string, 6, 2)#end
+#macro (makeMMsDD $string)$StringUtils.mid($string, 4, 2)/$StringUtils.mid($string, 6, 2)#end
+#macro (makeDate2YYYYDotMMDotDD $string)$!StringUtils.left($string, 4).$StringUtils.mid($string, 6, 2).$StringUtils.mid($string, 8, 2)#end
+#macro (makeYYYYMMDDHHmm $string)$!StringUtils.left($string, 4).$StringUtils.mid($string, 4, 2).$!StringUtils.mid($string, 6, 2) $!StringUtils.mid($string, 8, 2):$!StringUtils.mid($string, 10, 2)#end
+
+## Escape
+#macro (escTitle $str)$!esc.html($str)#end
+#macro (escUrl $str)$!esc.url($str)#end
+#macro (escScript $str)$!esc.javascript($str)#end
+
+## String Cut
+#macro (strCut $string $bytes)$EstateUtil.cutStringRealLength($string,$bytes,"..",0)#end
+#macro (strCutSmall $string $bytes)$EstateUtil.cutStringRealLength($string,$bytes,". .",0)#end
+
+## 숫자 포멧 ####################################################################################
+## 금액단위 표출 (자동)
+#macro (makePriceTypeAuto $value)
+#if( !$value == false )
+#if ( $math.div( $value, 100000000 ) >= 1 )
+$!number.format( "###,####", $!math.div( $value, 100000000 ))억원
+#elseif ( $math.div( $value, 10000 ) >= 1 )
+$!number.format( "###,####", $!math.div( $value, 10000 ))만원
+#else 
+$!number.format( "###,####", $!value )원#end#end
+#end
+## 소수점 2자리 고정 ( 0일때 -로 표시 ) 
+#macro (makeFloatType $value )
+#if( $value == 0 )-#else$!number.format("###,####", $number.format("0.00", $value ) )#end#end
+## 소수점 2자리 고정 
+#macro (makeFloatTypeZero $value )
+$!number.format("###,####", $number.format("0.00", $value ) )#end
+## 소수점 2자리 고정 + 절대값 
+#macro (makeFloatTypeAbs $value )
+$!number.format("0.00", $math.abs( $value ) )##
+#end
+#macro (makeDoubleTypeAbs $value )
+#if( $value == 0 )-#else$!number.format("0.00", $math.abs( $value ) )#end
+#end
+
+## 소수점 2자리 고정 ( +, - 기호표시 ) 
+#macro (makeFloatTypeSymbol $value )
+#if( $value > 0 )+#end$!number.format("0.00", $value )##
+#end
+
+## 소수점 2자리 고정및 퍼세트포함 표시 
+#macro (makeFloatTypeZeroPercent $value )
+#if($value>0)	
+$number.format("0.00", $value )%#else 0.00 #end
+#end
+
+## 소숫점 이하 절삭
+#macro (makeIntType $value )
+#if( $value == 0 )-#else$!number.format("###,####", $math.floor( $value ) )#end#end
+## 금액단위 표출 (만원)- 소수점은 안나오게
+#macro (makePriceTypeShort $value)
+$!number.format( "###,####", $number.format('integer',$math.div( $value, 10000 )))#end
+## 금액단위 표출 (기본)
+#macro (makePriceType $value)
+#if( $value == 0 )-#else$!number.format( "###,####", $value)#end#end
+#macro (makeNumberType $value)#if("$!{value}" == "")#set($value = 0)#end$!number.format( "###,####", $value)#end#macro (makeIntegerType $value)$!number.format( 'integer', $value)#end
+#macro (makeNumberTypeAbs $value)
+$!number.format( "###,####", $math.abs($math.floor($value)))#end
+
+#macro(getPageSize $totCount $pageCount )#if( $totCount%$pageCount ==0)$math.div($totCount, $pageCount)#else$math.add($math.floor($math.div($totCount, $pageCount)),1)#end#end
