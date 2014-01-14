@@ -1,0 +1,23 @@
+#macro (makeNumberType $value)
+#if($stringUtil.isEmpty($!value))0#else$!number.format("###,####", $value)#end#end
+
+## 소수점 2자리 고정 ( 0일때 -로 표시 ) 
+#macro (makeFloatType $value )
+#if( $value == 0 )-#else$!number.format("###,####", $number.format("0.00", $value ) )#end#end
+#macro (makeFloatZeroType $value )
+#if( $value == 0 )0#else$!number.format("###,####", $number.format("0.00", $value ) )#end#end
+#macro (makeFloat4Type $value )
+#if( $value == 0 )0#else$!number.format("###,####.####", $number.format("0.0000", $value ) )#end#end
+##$number.format("0.00", $value )
+
+		#macro (makeDoubleTypeAbs $value )
+#if( $value == 0 )-#else$!number.format("0.00", $math.abs( $value ) )#end
+		#end
+
+## 소수점 2자리 고정 
+#macro (makeFloatTypeZero $value )
+$!number.format("###,####", $number.format("0.00", $value ) )#end
+
+## 소숫점 이하 절삭
+#macro (makeIntType $value )
+#if( $value == 0 )-#else$!number.format("###,####", $math.floor( $value ) )#end#end

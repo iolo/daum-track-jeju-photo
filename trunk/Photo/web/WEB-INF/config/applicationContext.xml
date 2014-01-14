@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:oxm="http://www.springframework.org/schema/oxm"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="
+	   http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-3.0.xsd
+       http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util-3.0.xsd
+       http://www.springframework.org/schema/oxm
+       http://www.springframework.org/schema/oxm/spring-oxm-3.0.xsd
+       http://www.springframework.org/schema/task
+       http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+
+	<!-- Annotation-Based Configuration -->
+	<context:annotation-config />
+	<context:component-scan base-package="geophoto">
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+
+	<!-- AOP Configuration -->
+	<aop:aspectj-autoproxy proxy-target-class="false" />
+ 	
+	<!-- Scheduler Configuration -->
+	<task:annotation-driven />
+
+	<bean id="formattingConversionService"
+		class="org.springframework.format.support.FormattingConversionServiceFactoryBean" />
+
+	<!-- DataSource Configuration -->
+	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean"
+		p:configLocation="/WEB-INF/config/sqlmap-config.xml" p:dataSource-ref="dataSource" />
+
+	
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close" p:testOnBorrow="true" p:testWhileIdle="true"		
+		p:timeBetweenEvictionRunsMillis="10000" p:minEvictableIdleTimeMillis="60000"
+		p:maxWait="10000" p:maxActive="32" p:maxIdle="16" p:minIdle="8"
+		p:validationQuery="SELECT 1" p:driverClassName="com.mysql.jdbc.Driver"
+		p:url="jdbc:mysql://localhost:3306/geophoto?useUnicode=true&amp;characterEncoding=utf8&amp;mysqlEncoding=utf8"
+		p:username="photo" p:password="photo" />
+		
+
+	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+      <property name="dataSource"><ref local="dataSource"/></property>
+  	</bean>
+  	
+  	<bean id="multipartResolver"
+	class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	<property name="maxUploadSize">
+		<value>100000000</value>
+	</property>
+	</bean>
+
+	
+</beans>
