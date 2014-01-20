@@ -34,7 +34,7 @@ public class FBTest2 {
 	
 	private void publishPhoto(FacebookClient client, String id) {
 
-		FacebookType publishPhotoResponse = client.publish(id+"/feed", FacebookType.class,
+		FacebookType publishPhotoResponse = client.publish(id+"/photo", FacebookType.class,
 				BinaryAttachment.with("cat.png", getClass().getResourceAsStream("/128.png")),
 				Parameter.with("message", "test message 3 by jude"));
 
