@@ -2,8 +2,19 @@ create database geophoto;
 
 USE geophoto;
 
-CREATE TABLE `sample` (
-  `articleId` int(11) NOT NULL,  
-  `title` varchar(255) COLLATE utf8_bin DEFAULT NULL,  
-  PRIMARY KEY (`articleId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+CREATE TABLE `article` (
+  `id` varchar(255) NOT NULL,
+  `fbid` varchar(255),
+  `lat` int(10) NOT NULL,
+  `lng` int(10) NOT NULL,
+  `likecnt` int(10) default 0,
+  `regdttm` varchar(14) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY (`lat`,`lng`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+
+
+

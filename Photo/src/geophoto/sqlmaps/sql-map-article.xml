@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="article">
+
+<insert id="insertArticle" parameterClass="geophoto.cmd.ArticleCommand">
+	insert into article( id,fbid,lat,lng,likecnt,regdttm) values(#id#,#fbid#,#lat#,#lng#,0,date_format(now(),'%Y%m%d%H%i%s'));
+</insert>
+
+<select id="getArticleList" parameterClass="java.util.Map" resultClass="geophoto.cmd.ArticleCommand">
+	select id, fbid, lat, lng, likecnt, regdttm from article 
+	where #minLat# &lt;= lat and lat &lt;= #maxLat# and #minLng# &lt;= lng and lng &lt;= #maxLng# 
+</select>
+
+</sqlMap>
+

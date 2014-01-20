@@ -15,4 +15,5 @@
 	useStatementNamespaces="true"
 	 />	
 	<sqlMap resource="geophoto/sqlmaps/sql-map-test.xml" />
+	<sqlMap resource="geophoto/sqlmaps/sql-map-article.xml" />
 </sqlMapConfig> 
