@@ -1,3 +1,4 @@
-다음트랙 photo app ( 가칭 ) 을 위한 위키.
+1. varchar 와 char 의 차이점 및 장단점
 
-아무 의견이나 자유롭게 기술.
+2.  msyql ENGINE InnoDB 와 myisam 의 차이점 및 장단점
+
