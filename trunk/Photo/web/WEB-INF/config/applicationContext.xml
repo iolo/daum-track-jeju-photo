@@ -46,7 +46,7 @@
 		p:maxWait="10000" p:maxActive="32" p:maxIdle="16" p:minIdle="8"
 		p:validationQuery="SELECT 1" p:driverClassName="com.mysql.jdbc.Driver"
 		p:url="jdbc:mysql://localhost:3306/geophoto?useUnicode=true&amp;characterEncoding=utf8&amp;mysqlEncoding=utf8"
-		p:username="photo" p:password="photo" />
+		p:username="foot" p:password="print" />
 		
 
 	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
