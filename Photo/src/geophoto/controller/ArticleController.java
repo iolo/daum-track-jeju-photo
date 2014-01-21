@@ -45,8 +45,10 @@ public class ArticleController {
 
 		// facebook 에 등록
 		FacebookClient client = new DefaultFacebookClient(MY_ACCESS_TOKEN);
+//		FacebookType publishPhotoResponse = client.publish(PAGE_ID + "/photos", FacebookType.class,
+//				BinaryAttachment.with("cat.png", getClass().getResourceAsStream("/128.png")), Parameter.with("message", cmd.getContent()));
 		FacebookType publishPhotoResponse = client.publish(PAGE_ID + "/photos", FacebookType.class,
-				BinaryAttachment.with("cat.png", getClass().getResourceAsStream("/128.png")), Parameter.with("message", cmd.getContent()));
+				BinaryAttachment.with(cmd.getAttach().getName(), cmd.getAttach().getInputStream()), Parameter.with("message", cmd.getContent()));
 
 		String id = publishPhotoResponse.getId();
 		cmd.setId(id);
