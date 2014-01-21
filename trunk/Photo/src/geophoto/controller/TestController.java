@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.sun.org.apache.bcel.internal.generic.NEW;
 
 import geophoto.cmd.TestCommand;
 import geophoto.dao.TestDao;
@@ -50,7 +51,7 @@ public class TestController {
 			System.out.println(cmd.getTitle());
 		}
 		
-		
 		return "/readSample";								
 	}
+	
 }

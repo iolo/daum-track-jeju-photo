@@ -84,5 +84,13 @@ public class ArticleCommand {
 		this.attach = attach;
 	}
 
+	@Override
+	public String toString() {
+		return "ArticleCommand [id=" + id + ", likecnt=" + likecnt + ", regdttm=" + regdttm + ", fbid=" + fbid + ", lat=" + lat + ", lng=" + lng + ", content="
+				+ content + ", attach=" + attach + "]";
+	}
+	
+	
+
 
 }
