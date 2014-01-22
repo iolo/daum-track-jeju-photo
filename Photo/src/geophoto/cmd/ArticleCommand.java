@@ -4,22 +4,23 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 // 글 등록시 argument 를 받아오는 command
 
-public class ArticleCommand {			
-			
-	private String id;			// facebook 에 등록후 받아온 게시글 ID. client 에서 전송할 필요 없음
-	private int likecnt;		// db 에서 읽어오는 값
-	private String regdttm;		// db 에서 읽어오는 값
-	
+public class ArticleCommand {
+
+	private String id; // facebook 에 등록후 받아온 게시글 ID. client 에서 전송할 필요 없음
+	private int likecnt; // db 에서 읽어오는 값
+	private String regdttm; // db 에서 읽어오는 값
+
 	private String fbid;
-	
-	private int lat;	
-	private int lng;			
-	
-	private String content;	
-	
+
+	private int lat;
+	private int lng;
+
+	private String content;
+
 	private CommonsMultipartFile attach;
 
-	
+	private int avgcolor = 0xffffff;
+
 	public int getLikecnt() {
 		return likecnt;
 	}
@@ -89,8 +90,13 @@ public class ArticleCommand {
 		return "ArticleCommand [id=" + id + ", likecnt=" + likecnt + ", regdttm=" + regdttm + ", fbid=" + fbid + ", lat=" + lat + ", lng=" + lng + ", content="
 				+ content + ", attach=" + attach + "]";
 	}
-	
-	
 
+	public int getAvgcolor() {
+		return avgcolor;
+	}
+
+	public void setAvgcolor(int avgcolor) {
+		this.avgcolor = avgcolor;
+	}
 
 }

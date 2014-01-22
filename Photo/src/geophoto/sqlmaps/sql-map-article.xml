@@ -5,11 +5,19 @@
 <sqlMap namespace="article">
 
 <insert id="insertArticle" parameterClass="geophoto.cmd.ArticleCommand">
-	insert into article( id,fbid,lat,lng,likecnt,regdttm) values(#id#,#fbid#,#lat#,#lng#,0,date_format(now(),'%Y%m%d%H%i%s'));
+	insert into article( id,fbid,lat,lng,likecnt,regdttm,avgcolor) values(#id#,#fbid#,#lat#,#lng#,0,date_format(now(),'%Y%m%d%H%i%s'),#avgcolor#);
 </insert>
 
-<select id="getArticleList" parameterClass="java.util.Map" resultClass="geophoto.cmd.ArticleCommand">
-	select id, fbid, lat, lng, likecnt, regdttm from article 
+<select id="getArticleList_recent" resultClass="geophoto.cmd.ArticleCommand">
+	select id, fbid, lat, lng, likecnt, regdttm, avgcolor from article 
+	order by regdttm desc
+</select>
+<select id="getArticleList_like" resultClass="geophoto.cmd.ArticleCommand">
+	select id, fbid, lat, lng, likecnt, regdttm, avgcolor from article 
+	order by likecnt desc
+</select>
+<select id="getArticleList_around" parameterClass="java.util.Map" resultClass="geophoto.cmd.ArticleCommand">
+	select id, fbid, lat, lng, likecnt, regdttm, avgcolor from article 
 	where #minLat# &lt;= lat and lat &lt;= #maxLat# and #minLng# &lt;= lng and lng &lt;= #maxLng# 
 </select>
 

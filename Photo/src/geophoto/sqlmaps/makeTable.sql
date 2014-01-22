@@ -9,6 +9,7 @@ CREATE TABLE `article` (
   `lng` int(10) NOT NULL,
   `likecnt` int(10) default 0,
   `regdttm` varchar(14) NOT NULL,
+  `avgcolor` int(10) default 16581375,
   PRIMARY KEY (`id`),
   KEY (`lat`,`lng`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
