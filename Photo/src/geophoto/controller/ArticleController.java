@@ -19,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.google.gson.Gson;
 import com.restfb.BinaryAttachment;
@@ -59,17 +60,21 @@ public class ArticleController {
 		return "/result";
 	}
 
-	
 	@RequestMapping("/getArticleList/{orderby}")
-	public String getArticleListOrderBy(ModelMap modelMap, HttpServletRequest req, HttpServletResponse res, @PathVariable String orderby, ArticleCommand cmd)
+	public String getArticleListOrderBy(ModelMap modelMap, HttpServletRequest req, HttpServletResponse res, @PathVariable String orderby, ArticleCommand cmd, @RequestParam int limit)
 			throws Exception {
-		List<ArticleCommand> articleList = null;
+		
+		System.out.println(cmd.toString());
+		List<ArticleCommand> articleList = null; 
 		Map<String, Integer> paramMap = new HashMap<String, Integer>();
 
-		if (orderby.equals("around")) {
+		if(orderby.equals("recent")){
+			paramMap.put("from", cmd.getNo());
+			paramMap.put("limit", limit);
+			
+		}else if (orderby.equals("around")) {
 			int RANGE = 20000;
-
-			paramMap = new HashMap<String, Integer>();
+			
 			paramMap.put("minLat", cmd.getLat() - RANGE);
 			paramMap.put("maxLat", cmd.getLat() + RANGE);
 			paramMap.put("minLng", cmd.getLng() - RANGE);
@@ -103,8 +108,6 @@ public class ArticleController {
 		gsum /= 100;
 		bsum /= 100;
 		rgb = rsum << 16 | gsum << 8 | bsum;
-
-		System.out.println("rgb : " + rgb + " / dec : " + rsum + ", " + gsum + ", " + bsum);
 
 		return rsum << 16 | gsum << 8 | bsum;
 	}
