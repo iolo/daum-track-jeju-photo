@@ -6,6 +6,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 public class ArticleCommand {
 
+	private int no;
 	private String id; // facebook 에 등록후 받아온 게시글 ID. client 에서 전송할 필요 없음
 	private int likecnt; // db 에서 읽어오는 값
 	private String regdttm; // db 에서 읽어오는 값
@@ -97,6 +98,14 @@ public class ArticleCommand {
 
 	public void setAvgcolor(int avgcolor) {
 		this.avgcolor = avgcolor;
+	}
+
+	public int getNo() {
+		return no;
+	}
+
+	public void setNo(int no) {
+		this.no = no;
 	}
 
 }

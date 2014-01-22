@@ -8,13 +8,13 @@
 	insert into article( id,fbid,lat,lng,likecnt,regdttm,avgcolor) values(#id#,#fbid#,#lat#,#lng#,0,date_format(now(),'%Y%m%d%H%i%s'),#avgcolor#);
 </insert>
 
-<select id="getArticleList_recent" resultClass="geophoto.cmd.ArticleCommand">
-	select id, fbid, lat, lng, likecnt, regdttm, avgcolor from article 
-	order by regdttm desc
+<select id="getArticleList_recent" parameterClass="java.util.Map" resultClass="geophoto.cmd.ArticleCommand">
+	select no, id, fbid, lat, lng, likecnt, regdttm, avgcolor from article 
+	where no &lt; #from# order by regdttm desc limit #limit#;
 </select>
 <select id="getArticleList_like" resultClass="geophoto.cmd.ArticleCommand">
-	select id, fbid, lat, lng, likecnt, regdttm, avgcolor from article 
-	order by likecnt desc
+	select no, id, fbid, lat, lng, likecnt, regdttm, avgcolor from article 
+	order by likecnt desc limit 100
 </select>
 <select id="getArticleList_around" parameterClass="java.util.Map" resultClass="geophoto.cmd.ArticleCommand">
 	select id, fbid, lat, lng, likecnt, regdttm, avgcolor from article 
