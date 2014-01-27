@@ -22,11 +22,11 @@ public class FBTest2 {
 	
 	static FacebookClient facebookClientRabbit = new DefaultFacebookClient(MY_ACCESS_TOKEN);		
 	
-	public static void main(String[] args) {
-		FBTest2 test =  new FBTest2();
-
-		test.publishPhoto(facebookClientRabbit, PAGE_ID);
-	}
+//	public static void main(String[] args) {
+//		FBTest2 test =  new FBTest2();
+//
+//		test.publishPhoto(facebookClientRabbit, PAGE_ID);
+//	}
 	
 	private void publishPhoto(FacebookClient client, String id) {
 		FacebookType publishPhotoResponse = client.publish(id+"/photo", FacebookType.class,
