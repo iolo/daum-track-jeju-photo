@@ -7,7 +7,10 @@
 <insert id="insertArticle" parameterClass="geophoto.cmd.ArticleCommand">
 	insert into article( id,fbid,lat,lng,likecnt,regdttm,avgcolor) values(#id#,#fbid#,#lat#,#lng#,0,date_format(now(),'%Y%m%d%H%i%s'),#avgcolor#);
 </insert>
-
+<select id="getArticle" parameterClass="java.util.Map" resultClass="geophoto.cmd.ArticleCommand">
+	select no, id, fbid, lat, lng, likecnt, regdttm, avgcolor from article 
+	where id=#postId#
+</select>
 <select id="getArticleList_recent" parameterClass="java.util.Map" resultClass="geophoto.cmd.ArticleCommand">
 	select no, id, fbid, lat, lng, likecnt, regdttm, avgcolor from article 
 	where no &lt; #from# order by regdttm desc limit #limit#;
@@ -20,6 +23,9 @@
 	select id, fbid, lat, lng, likecnt, regdttm, avgcolor from article 
 	where #minLat# &lt;= lat and lat &lt;= #maxLat# and #minLng# &lt;= lng and lng &lt;= #maxLng# 
 </select>
+<update id="updateLikeCount" parameterClass="java.util.Map">
+	update article set likecnt=#likecnt# where id=#id#;
+</update>
 
 </sqlMap>
 
