@@ -6,6 +6,7 @@ import geophoto.dao.ArticleDao;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -50,6 +51,7 @@ public class ArticleController {
 	@RequestMapping("/writeArticle")
 	public String writeArticle(ModelMap modelMap, HttpServletRequest req, HttpServletResponse res, ArticleCommand cmd, String accesstoken) throws Exception {
 		// facebook 에 등록
+		cmd.setContent(URLDecoder.decode(cmd.getContent(),"UTF-8"));
 		FacebookClient client = new DefaultFacebookClient(accesstoken);
 		FacebookType publishPhotoResponse = client.publish(PAGE_ID + "/photos", FacebookType.class,
 				BinaryAttachment.with(cmd.getAttach().getName(), cmd.getAttach().getInputStream()), Parameter.with("message", cmd.getContent()));
